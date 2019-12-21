@@ -23,6 +23,7 @@ import {
   DebugInstructions,
   ReloadInstructions,
 } from 'react-native/Libraries/NewAppScreen';
+import './shared/build/classes/kotlin/main/shared'
 
 const App: () => React$Node = () => {
   return (
