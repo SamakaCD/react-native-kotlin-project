@@ -11,6 +11,7 @@ external interface TextStyle {
 
 external interface TextProps : RProps {
     var style: TextStyle
+    var onPress: () -> Unit
 }
 
 external val Text: RClass<TextProps>
