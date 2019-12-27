@@ -4,5 +4,5 @@ package react.native
 
 external object AppRegistry {
 
-    fun registerComponent(appKey: String, componentProvider: () -> dynamic)
+	fun registerComponent(appKey: String, componentProvider: () -> dynamic)
 }

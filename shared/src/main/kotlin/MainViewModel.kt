@@ -4,14 +4,14 @@ import com.ivansadovyi.mobx.observable
 
 class MainViewModel {
 
-    var value by observable { 0 }
+	var value by observable { 0 }
 
-    init {
-        println("View model init")
-    }
+	init {
+		println("View model init")
+	}
 
-    fun increment() {
-        value++
-        println("Increment")
-    }
+	fun increment() {
+		value++
+		println("Increment")
+	}
 }

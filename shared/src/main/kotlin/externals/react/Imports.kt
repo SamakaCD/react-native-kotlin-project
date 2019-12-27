@@ -2,7 +2,7 @@
 
 package react
 
-import kotlin.js.*
+import kotlin.js.Promise
 
 // See https://reactjs.org/docs/react-component.html
 
@@ -12,54 +12,54 @@ external fun cloneElement(element: dynamic, props: dynamic, vararg child: Any?):
 external fun isValidElement(element: Any): Boolean
 
 external object Children {
-    fun <T> map(children: Any?, handler: (Child) -> T): Array<out T>?
-    fun <T> map(children: Any?, handler: (Child) -> T, context: Any?): Array<out T>?
-    fun forEach(children: Any?, handler: (Child) -> Unit)
-    fun forEach(children: Any?, handler: (Child) -> Unit, context: Any?)
-    fun count(children: Any?): Int
-    fun only(children: Any?): ReactElement
-    fun toArray(children: Any?): Array<out Child>
+	fun <T> map(children: Any?, handler: (Child) -> T): Array<out T>?
+	fun <T> map(children: Any?, handler: (Child) -> T, context: Any?): Array<out T>?
+	fun forEach(children: Any?, handler: (Child) -> Unit)
+	fun forEach(children: Any?, handler: (Child) -> Unit, context: Any?)
+	fun count(children: Any?): Int
+	fun only(children: Any?): ReactElement
+	fun toArray(children: Any?): Array<out Child>
 }
 
 abstract external class Component<P : RProps, S : RState>(
-    props: RProps = definedExternally
+	props: RProps = definedExternally
 ) {
-    open val props: P
-    var state: S
+	open val props: P
+	var state: S
 
-    fun setState(partialState: S, callback: () -> Unit = definedExternally)
-    fun setState(transformState: (S) -> S, callback: () -> Unit = definedExternally)
+	fun setState(partialState: S, callback: () -> Unit = definedExternally)
+	fun setState(transformState: (S) -> S, callback: () -> Unit = definedExternally)
 
-    fun forceUpdate(callback: () -> Unit = definedExternally)
+	fun forceUpdate(callback: () -> Unit = definedExternally)
 
-    open fun componentWillMount(): Unit
-    open fun UNSAFE_componentWillMount(): Unit
+	open fun componentWillMount(): Unit
+	open fun UNSAFE_componentWillMount(): Unit
 
-    open fun componentDidMount(): Unit
+	open fun componentDidMount(): Unit
 
-    open fun componentWillReceiveProps(nextProps: P): Unit
-    open fun UNSAFE_componentWillReceiveProps(nextProps: P): Unit
+	open fun componentWillReceiveProps(nextProps: P): Unit
+	open fun UNSAFE_componentWillReceiveProps(nextProps: P): Unit
 
-    open fun shouldComponentUpdate(nextProps: P, nextState: S): Boolean
+	open fun shouldComponentUpdate(nextProps: P, nextState: S): Boolean
 
-    open fun getSnapshotBeforeUpdate(prevProps: P, prevState: S): Any
+	open fun getSnapshotBeforeUpdate(prevProps: P, prevState: S): Any
 
-    open fun componentWillUpdate(nextProps: P, nextState: S): Unit
-    open fun UNSAFE_componentWillUpdate(nextProps: P, nextState: S): Unit
+	open fun componentWillUpdate(nextProps: P, nextState: S): Unit
+	open fun UNSAFE_componentWillUpdate(nextProps: P, nextState: S): Unit
 
-    open fun componentDidUpdate(prevProps: P, prevState: S, snapshot: Any): Unit
+	open fun componentDidUpdate(prevProps: P, prevState: S, snapshot: Any): Unit
 
-    open fun componentWillUnmount(): Unit
+	open fun componentWillUnmount(): Unit
 
-    open fun componentDidCatch(error: Throwable, info: RErrorInfo): Unit
+	open fun componentDidCatch(error: Throwable, info: RErrorInfo): Unit
 
-    abstract fun render(): dynamic
+	abstract fun render(): dynamic
 }
 
 abstract external class PureComponent<P : RProps, S : RState>(
-    props: RProps = definedExternally
+	props: RProps = definedExternally
 ) : Component<P, S> {
-    final override fun shouldComponentUpdate(nextProps: P, nextState: S): Boolean
+	final override fun shouldComponentUpdate(nextProps: P, nextState: S): Boolean
 }
 
 // Fragment (16+)
@@ -90,11 +90,11 @@ external val Suspense: RClass<SuspenseProps>
 
 // Profiler (16.9+)
 external interface ProfilerProps : RProps {
-    var id: String
-    var onRender: (id: String, phase: String, actualDuration: Number, baseDuration: Number, startTime: Number, commitTime: Number, interactions: dynamic) -> Unit
+	var id: String
+	var onRender: (id: String, phase: String, actualDuration: Number, baseDuration: Number, startTime: Number, commitTime: Number, interactions: dynamic) -> Unit
 }
 
-external val Profiler : RClass<ProfilerProps>
+external val Profiler: RClass<ProfilerProps>
 
 // State Hook (16.8+)
 @JsName("useState")
@@ -132,7 +132,7 @@ external fun <T> useMemo(callback: () -> T, dependencies: RDependenciesArray): T
 
 // Ref Hook (16.8+)
 external interface RMutableRef<T> : RRef {
-    var current: T
+	var current: T
 }
 
 external fun <T> useRef(initialValue: T): RMutableRef<T>

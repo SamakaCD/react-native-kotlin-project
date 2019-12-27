@@ -1,25 +1,26 @@
 package react
 
-import kotlinext.js.*
+import kotlinext.js.assign
+import kotlinext.js.jsObject
 
 // Props
 external interface RProps
 
 val RProps.children: Any get() = asDynamic().children
 var RProps.key: String
-    get() = error("key cannot be read from props")
-    set(value) {
-        asDynamic().key = value
-    }
+	get() = error("key cannot be read from props")
+	set(value) {
+		asDynamic().key = value
+	}
 
 var RProps.ref: RRef
-    get() = error("ref cannot be read from props")
-    set(value) {
-        asDynamic().ref = value
-    }
+	get() = error("ref cannot be read from props")
+	set(value) {
+		asDynamic().ref = value
+	}
 
 fun <T> RProps.ref(ref: (T?) -> Unit) {
-    asDynamic().ref = ref
+	asDynamic().ref = ref
 }
 
 // State
@@ -36,72 +37,72 @@ val RErrorInfo.componentStack: Any get() = asDynamic().componentStack
 external interface RClass<in P : RProps> : RComponentClassStatics<RProps, RState, RContext<Any>?>
 
 external interface RComponentClassStatics<P : RProps, S : RState, C : RContext<Any>?> {
-    var displayName: String?
+	var displayName: String?
 
-    var defaultProps: P?
+	var defaultProps: P?
 
-    var contextType: C
+	var contextType: C
 
-    var getDerivedStateFromProps: ((P, S) -> S?)?
+	var getDerivedStateFromProps: ((P, S) -> S?)?
 
-    var getDerivedStateFromError: ((Throwable) -> S?)?
+	var getDerivedStateFromError: ((Throwable) -> S?)?
 }
 
 external interface RProviderProps<T> : RProps {
-    var value: T
+	var value: T
 }
 
 external interface RProvider<T> : RClass<RProviderProps<T>>
 
 external interface RConsumerProps<T> : RProps {
-    var children: (T) -> Any
+	var children: (T) -> Any
 }
 
 external interface RConsumer<T> : RClass<RConsumerProps<T>>
 
 // Context (16.3+)
 external interface RContext<T> {
-    val Provider: RProvider<T>
-    val Consumer: RConsumer<T>
+	val Provider: RProvider<T>
+	val Consumer: RConsumer<T>
 }
 
 // Refs (16.3+)
 external interface RRef
 
 external interface RReadableRef<out T> : RRef {
-    val current: T?
+	val current: T?
 }
 
 fun <S : RState> Component<*, S>.setState(buildState: S.() -> Unit) =
-    setState({ assign(it, buildState) })
+	setState({ assign(it, buildState) })
 
 inline fun <P : RProps> rFunction(
-    displayName: String,
-    crossinline render: RBuilder.(P) -> Unit
+	displayName: String,
+	crossinline render: RBuilder.(P) -> Unit
 ): RClass<P> {
-    val fn = { props: P -> buildElements { render(props) } } as RClass<P>
-    fn.displayName = displayName
-    return fn
+	val fn = { props: P -> buildElements { render(props) } } as RClass<P>
+	fn.displayName = displayName
+	return fn
 }
 
 abstract class RComponent<P : RProps, S : RState> : Component<P, S> {
-    constructor() : super() {
-        state = jsObject { init() }
-    }
+	constructor() : super() {
+		state = jsObject { init() }
+	}
 
-    constructor(props: P) : super(props) {
-        state = jsObject { init(props) }
-    }
+	constructor(props: P) : super(props) {
+		state = jsObject { init(props) }
+	}
 
-    open fun S.init() {}
-    // if you use this method, don't forget to pass props to the constructor first
-    open fun S.init(props: P) {}
+	open fun S.init() {}
+	// if you use this method, don't forget to pass props to the constructor first
+	open fun S.init(props: P) {}
 
-    fun RBuilder.children() {
-        props.children()
-    }
+	fun RBuilder.children() {
+		props.children()
+	}
 
-    abstract fun RBuilder.render()
+	abstract fun RBuilder.render()
 
-    override fun render() = buildElements { render() }
+	override fun render() = buildElements { render() }
 }
