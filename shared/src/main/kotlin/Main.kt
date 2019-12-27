@@ -4,6 +4,7 @@ import com.reactnativekotlinproject.externals.mobx.observableFunctionalComponent
 import com.reactnativekotlinproject.externals.reactnative.rbwrappers.*
 import react.RProps
 import react.native.AppRegistry
+import react.useState
 
 object Styles {
 	val container = viewStyle {
@@ -16,8 +17,8 @@ object Styles {
 	val child = viewStyle {
 		alignItems = AlignItems.CENTER
 		justifyContent = JustifyContent.CENTER
-		width = 100f
-		height = 100f
+		padding = 16f
+		borderRadius = 16f
 		backgroundColor = "#3F51B5"
 	}
 
@@ -27,10 +28,14 @@ object Styles {
 }
 
 val App = observableFunctionalComponent<RProps> {
+	val (viewModel) = useState { MainViewModel() }
 	view(style = Styles.container) {
-		view(style = Styles.child) {
+		touchableOpacity(
+			style = Styles.child,
+			onPress = viewModel::increment
+		) {
 			text(style = Styles.text) {
-				+"Hello world!"
+				+"Hello world! ${viewModel.value}"
 			}
 		}
 	}

@@ -11,6 +11,7 @@ external interface ViewStyle {
 	var alignSelf: String?
 	var aspectRatio: Float?
 	var backgroundColor: String?
+	var borderRadius: dynamic
 	var borderBottomWidth: Float?
 	var borderEndWidth: Float?
 	var borderLeftWidth: Float?
