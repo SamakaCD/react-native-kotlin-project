@@ -17,66 +17,68 @@ fun RBuilder.view(
 	}, children)
 }
 
-enum class AlignContent(val value: String) {
-	FLEX_START("flex-start"),
-	FLEX_END("flex-end"),
-	CENTER("center"),
-	STRETCH("stretch"),
-	SPACE_BETWEEN("space-between"),
-	SPACE_AROUND("space-around")
+object AlignContent {
+	const val FLEX_START = "flex-start"
+	const val FLEX_END = "flex-end"
+	const val CENTER = "center"
+	const val STRETCH = "stretch"
+	const val SPACE_BETWEEN = "space-between"
+	const val SPACE_AROUND = "space-around"
 }
 
-enum class AlignItems(val value: String) {
-	FLEX_START("flex-start"),
-	FLEX_END("flex-end"),
-	CENTER("center"),
-	STRETCH("stretch"),
-	BASELINE("baseline")
+object AlignItems {
+	const val FLEX_START = "flex-start"
+	const val FLEX_END = "flex-end"
+	const val CENTER = "center"
+	const val STRETCH = "stretch"
+	const val BASELINE = "baseline"
 }
 
-enum class AlignSelf(val value: String) {
-	AUTO("auto"),
-	FLEX_START("flex-start"),
-	FLEX_END("flex-end"),
-	CENTER("center"),
-	STRETCH("stretch"),
-	BASELINE("baseline")
+object AlignSelf {
+	const val AUTO = "auto"
+	const val FLEX_START = "flex-start"
+	const val FLEX_END = "flex-end"
+	const val CENTER = "center"
+	const val STRETCH = "stretch"
+	const val BASELINE = "baseline"
 }
 
-enum class JustifyContent(val value: String) {
-	FLEX_START("flex-start"),
-	FLEX_END("flex-end"),
-	CENTER("center"),
-	SPACE_BETWEEN("space-between"),
-	SPACE_AROUND("space-around"),
-	SPACE_EVENLY("space-evenly")
+object JustifyContent {
+	const val FLEX_START = "flex-start"
+	const val FLEX_END = "flex-end"
+	const val CENTER = "center"
+	const val SPACE_BETWEEN = "space-between"
+	const val SPACE_AROUND = "space-around"
+	const val SPACE_EVENLY = "space-evenly"
 }
 
-interface TypeSafeViewStyle {
-	var alignContent: AlignContent?
-	var alignItems: AlignItems?
-	var alignSelf: AlignSelf?
-	var aspectRatio: Float?
-	var backgroundColor: String?
-	var flex: Float?
-	var height: Float?
-	var justifyContent: JustifyContent?
-	var marginTop: Int?
-	var width: Float?
+object Direction {
+	const val INHERIT = "inherit"
+	const val LTR = "ltr"
+	const val RTL = "rtl"
 }
 
-fun viewStyle(body: TypeSafeViewStyle.() -> Unit): ViewStyle {
-	val typeSafeStyle = jsObject(body)
-	return jsObject {
-		alignContent = typeSafeStyle.alignContent?.value
-		alignItems = typeSafeStyle.alignItems?.value
-		alignSelf = typeSafeStyle.alignSelf?.value
-		aspectRatio = typeSafeStyle.aspectRatio
-		backgroundColor = typeSafeStyle.backgroundColor
-		flex = typeSafeStyle.flex
-		height = typeSafeStyle.height
-		justifyContent = typeSafeStyle.justifyContent?.value
-		marginTop = typeSafeStyle.marginTop
-		width = typeSafeStyle.width
-	}
+object FlexDirection {
+	const val ROW = "row"
+	const val ROW_REVERSE = "row-reverse"
+	const val COLUMN = "column"
+	const val COLUMN_REVERSE = "column-reverse"
 }
+
+object FlexWrap {
+	const val WRAP = "wrap"
+	const val NO_WRAP = "nowrap"
+}
+
+object Overflow {
+	const val VISIBLE = "visible"
+	const val HIDDEN = "hidden"
+	const val SCROLL = "scroll"
+}
+
+object Position {
+	const val ABSOLUTE = "absolute"
+	const val RELATIVE = "relative"
+}
+
+fun viewStyle(body: ViewStyle.() -> Unit) = jsObject(body)
