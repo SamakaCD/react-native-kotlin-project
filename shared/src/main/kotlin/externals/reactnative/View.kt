@@ -79,6 +79,7 @@ interface ViewStyle {
 	var alignSelf: String?
 	var aspectRatio: Float?
 	var backgroundColor: String?
+	var borderColor: String?
 	var borderRadius: dynamic
 	var borderBottomWidth: Float?
 	var borderEndWidth: Float?
