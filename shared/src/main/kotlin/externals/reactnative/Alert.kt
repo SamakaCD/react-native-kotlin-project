@@ -1,7 +1,7 @@
 package react.native
 
 @JsModule("react-native")
-private external object ReactNative {
+private external object ReactNative_Alert {
 
 	object Alert {
 
@@ -25,7 +25,7 @@ object Alert {
 		message: String? = null,
 		buttons: Array<Button>? = null
 	) {
-		ReactNative.Alert.alert(
+		ReactNative_Alert.Alert.alert(
 			title = title,
 			message = message,
 			buttons = buttons

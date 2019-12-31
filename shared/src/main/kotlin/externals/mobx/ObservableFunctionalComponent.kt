@@ -1,6 +1,5 @@
-package com.reactnativekotlinproject.externals.mobx
+package com.ivansadovyi.mobx
 
-import com.ivansadovyi.mobx.reaction
 import react.*
 
 fun <P : RProps> observableFunctionalComponent(

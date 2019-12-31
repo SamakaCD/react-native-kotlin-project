@@ -1,11 +1,79 @@
-@file:JsModule("react-native")
-
 package react.native
 
-import react.RClass
-import react.RProps
+import kotlinext.js.jsObject
+import react.*
 
-external interface ViewStyle {
+@JsModule("react-native")
+private external object ReactNative_View {
+
+	val View: RClass<ViewProps>
+}
+
+object AlignContent {
+	const val FLEX_START = "flex-start"
+	const val FLEX_END = "flex-end"
+	const val CENTER = "center"
+	const val STRETCH = "stretch"
+	const val SPACE_BETWEEN = "space-between"
+	const val SPACE_AROUND = "space-around"
+}
+
+object AlignItems {
+	const val FLEX_START = "flex-start"
+	const val FLEX_END = "flex-end"
+	const val CENTER = "center"
+	const val STRETCH = "stretch"
+	const val BASELINE = "baseline"
+}
+
+object AlignSelf {
+	const val AUTO = "auto"
+	const val FLEX_START = "flex-start"
+	const val FLEX_END = "flex-end"
+	const val CENTER = "center"
+	const val STRETCH = "stretch"
+	const val BASELINE = "baseline"
+}
+
+object JustifyContent {
+	const val FLEX_START = "flex-start"
+	const val FLEX_END = "flex-end"
+	const val CENTER = "center"
+	const val SPACE_BETWEEN = "space-between"
+	const val SPACE_AROUND = "space-around"
+	const val SPACE_EVENLY = "space-evenly"
+}
+
+object Direction {
+	const val INHERIT = "inherit"
+	const val LTR = "ltr"
+	const val RTL = "rtl"
+}
+
+object FlexDirection {
+	const val ROW = "row"
+	const val ROW_REVERSE = "row-reverse"
+	const val COLUMN = "column"
+	const val COLUMN_REVERSE = "column-reverse"
+}
+
+object FlexWrap {
+	const val WRAP = "wrap"
+	const val NO_WRAP = "nowrap"
+}
+
+object Overflow {
+	const val VISIBLE = "visible"
+	const val HIDDEN = "hidden"
+	const val SCROLL = "scroll"
+}
+
+object Position {
+	const val ABSOLUTE = "absolute"
+	const val RELATIVE = "relative"
+}
+
+interface ViewStyle {
 	var alignContent: String?
 	var alignItems: String?
 	var alignSelf: String?
@@ -61,8 +129,17 @@ external interface ViewStyle {
 	var zIndex: Int?
 }
 
-external interface ViewProps : RProps {
+interface ViewProps : RProps {
 	var style: ViewStyle?
 }
 
-external val View: RClass<ViewProps>
+fun RBuilder.view(
+	style: ViewStyle? = undefined,
+	children: RHandler<ViewProps> = { }
+): ReactElement {
+	return child(ReactNative_View.View, jsObject {
+		this.style = style
+	}, children)
+}
+
+fun viewStyle(body: ViewStyle.() -> Unit) = jsObject(body)
